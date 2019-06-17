@@ -1,7 +1,6 @@
 package com.company.factory;
 
-import com.company.operation.Addoperation;
-import com.company.operation.Operation;
+import com.company.operation.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -12,16 +11,42 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 public class ObjectOperationFactoryTest {
-
-    @Test
-    public void shouldReturnAddObj() {
+    public List<Double> getList() {
         List<Double> inputnumber = new ArrayList<Double>();
         inputnumber.add(5.0);
         inputnumber.add(7.0);
-        Factory operationFactory = new ObjectOperationFactory(inputnumber,"add");
+
+        return inputnumber;
+    }
+
+
+    @Test
+    public void shouldReturnAddObj() {
+        Factory operationFactory = new ObjectOperationFactory(this.getList(),"add");
         Operation operation = operationFactory.getInstance();
         assertThat(operation, instanceOf(Addoperation.class));
-
     }
+
+    @Test
+    public void shouldReturnSubObj() {
+        Factory operationFactory = new ObjectOperationFactory(this.getList(),"sub");
+        Operation operation = operationFactory.getInstance();
+        assertThat(operation, instanceOf(SubOperation.class));
+    }
+
+    @Test
+    public void shouldReturnDivObj() {
+        Factory operationFactory = new ObjectOperationFactory(this.getList(),"div");
+        Operation operation = operationFactory.getInstance();
+        assertThat(operation, instanceOf(Divoperation.class));
+    }
+
+    @Test
+    public void shouldReturnMulObj() {
+        Factory operationFactory = new ObjectOperationFactory(this.getList(),"mul");
+        Operation operation = operationFactory.getInstance();
+        assertThat(operation, instanceOf(Muloperation.class));
+    }
+
 
 }
